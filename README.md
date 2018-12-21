@@ -2,6 +2,7 @@
 
 Create awsconfig.js with the following content
 
+```
 const awsconfig = {
     // aws key and secrete file
     accessKeyId : '<yourkeyid>',
@@ -9,3 +10,4 @@ const awsconfig = {
 }
 
 module.exports = awsconfig
+```
