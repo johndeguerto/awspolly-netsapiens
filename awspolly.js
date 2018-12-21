@@ -28,7 +28,7 @@ function awsSpeech(speechText, callback) {
         OutputFormat : 'mp3',
         SampleRate : '8000',
         Text : speechText,
-        TextType : 'text',
+        TextType : 'ssml',
         VoiceId : 'Joanna'
     }, callback)
 
