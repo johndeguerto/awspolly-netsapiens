@@ -5,7 +5,7 @@ const port = 8081
 
 
 function gather(digit, action, audio){
-    var x = `<Gather numDigits=${digit} action='${action}'>`
+    var x = `<Gather numDigits='${digit}' action='${action}'>`
     x += `<Play>${audio}</Play>`
     x += `</Gather>`
     return x
@@ -18,7 +18,6 @@ function play(action,audio){
 function forward(location){
     return `<Forward>${location}</Forward>`
 }
-
 
 /**
  * Default route sends 404 not found
