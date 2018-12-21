@@ -1,4 +1,5 @@
 # awspolly-netsapiens
+Generate a wav file that can be used for netsapiens To-Web dial translation
 
 ## Install mpg123 and sox
 ```sudo apt-get install mpg123, sox```
@@ -13,3 +14,7 @@ const awsconfig = {
 
 module.exports = awsconfig
 ```
+
+
+# Upcoming:
+> write the web responder to handle IVR Control posted from Netsapiens NMS
