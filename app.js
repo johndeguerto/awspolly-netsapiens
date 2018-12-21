@@ -26,8 +26,9 @@ function forward(location){
  * Default route sends 404 not found
  */
 app.get('/', (req,res) => {    
-    console.log(req.query)
-    res.end(404)
+    console.log('Undefined request')
+    res.statusCode == 404
+    res.end()
 })
 
 function serveHttpAudioFile(req,res){
@@ -62,11 +63,48 @@ app.get('/audio/speech.wav', serveHttpAudioFile)
 
 function processTicket(req,res){
     console.log(req.query)
-
     console.log('Process Ticket callback initiated.')
+
+    switch(req.query.Digits){
+        case 1:
+            var str = "<speak>A lawyer is standing in a long line at the box office. Suddenly, he feels a pair of hands kneading his shoulders, back, and neck. The lawyer turns around."
+            str += "What the hell do you think you're doing?"
+            str += "I'm a chiropractor, and I'm just keeping in practice while I'm waiting in line."
+            str += "Well, I'm a lawyer, but you don't see me screwing the guy in front of me, do you?</speak>"
+
+            speech(str, function (err, data) {
+                if (err) console.log(err.stack)
+                else
+                    prepareWav(data, (wavefile) => {
+                        console.log('Your 8bit 8000Hz wave file is now ready for default speech \n' + wavefile)
+                        //var result = gather(1, `${httpSrv}/ticket`, `${httpSrv}/audio/speech.wav`)
+                        var result = play('', `${httpSrv}audio/speech.wav`)
+                        console.log(result)
+                        res.send(result)             
+                    })
+            }) 
+        break;
+        case 2:
+
+        break;
+
+        default:           
+            speech('<speak>Invalid response. Good Bye</speak>', function (err, data) {
+                if (err) console.log(err.stack)
+                else
+                    prepareWav(data, (wavefile) => {
+                        console.log('Your 8bit 8000Hz wave file is now ready for default speech \n' + wavefile)
+                        //var result = gather(1, `${httpSrv}/ticket`, `${httpSrv}/audio/speech.wav`)
+                        var result = play('', `${httpSrv}audio/speech.wav`)
+                        console.log(result)
+                        res.send(result)             
+                    })
+            }) 
+    }
 
     if(req.query.Digits == 1){
         console.log('User pressed ' + req.query.Digits )
+
     }
 
     res.end()
@@ -82,7 +120,6 @@ app.get('/ticket', processTicket)
  */
 app.get('/webresponder', (req,res) => {    
     console.log(req.query)
-
 
     speech('<speak>Welcome to Clear Clouds IVR Control responder.  Press 1 to hear the joke of the day..</speak>', function (err, data) {
         if (err) console.log(err.stack)
