@@ -3,6 +3,9 @@ const app = express()
 const fs = require('fs')
 const port = 8081
 
+var speech = require('./awspolly')
+var prepareWav = require('./prepare-wav')
+var httpSrv = 'http://pre.clearclouds.ca:8081'
 
 function gather(digit, action, audio){
     var x = `<Gather numDigits='${digit}' action='${action}'>`
@@ -62,6 +65,10 @@ function processTicket(req,res){
 
     console.log('Process Ticket callback initiated.')
 
+    if(req.query.Digits == 1){
+        console.log('User pressed ' + req.query.Digits )
+    }
+
     res.end()
 }
 
@@ -75,10 +82,7 @@ app.get('/ticket', processTicket)
  */
 app.get('/webresponder', (req,res) => {    
     console.log(req.query)
-    var speech = require('./awspolly')
-    var prepareWav = require('./prepare-wav')
 
-    var httpSrv = 'http://pre.clearclouds.ca:8081'
 
     speech('<speak>Welcome to Clear Clouds IVR Control responder.  Press 1 to hear the joke of the day..</speak>', function (err, data) {
         if (err) console.log(err.stack)
