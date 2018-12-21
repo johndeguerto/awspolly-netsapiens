@@ -68,10 +68,10 @@ function processTicket(req,res){
 
     switch(req.query.Digits){
         case '1':
-            var str = "<speak>A lawyer is standing in a long line at the box office. Suddenly, he feels a pair of hands kneading his shoulders, back, and neck. The lawyer turns around."
-            str += "What the hell do you think you're doing?"
-            str += "I'm a chiropractor, and I'm just keeping in practice while I'm waiting in line."
-            str += "Well, I'm a lawyer, but you don't see me screwing the guy in front of me, do you?</speak>"
+            var str = "<speak>A lawyer is standing in a long line at the box office. Suddenly, he feels a pair of hands kneading his shoulders, back, and neck. The lawyer turns around.<break>"
+            str += "What the hell do you think you're doing?<break>"
+            str += "<emphasis level=\"strong\">I'm a chiropractor</sphasis>, and I'm just keeping in practice while I'm waiting in line.<break>"
+            str += "Well, <emphasis>I'm a lawyer</emphasis>, <break>but you don't see me screwing the guy in front of me, do you?</speak>"
 
             speech(str, function (err, data) {
                 if (err) console.log(err.stack)
