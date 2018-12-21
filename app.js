@@ -88,6 +88,10 @@ function processTicket(req,res){
 
         break;
 
+        case '3':
+            res.send( forward(9059525258) )
+        break;
+
         case '9':
             speech(menuSpeech(), function (err, data) {
                 if (err) console.log(err.stack)
