@@ -87,6 +87,19 @@ function processTicket(req,res){
         case '2':
 
         break;
+
+        case '9':
+            speech(menuSpeech(), function (err, data) {
+                if (err) console.log(err.stack)
+                else
+                    prepareWav(data, (wavefile) => {
+                        var result = gather(1, `${httpSrv}/ticket`, `${httpSrv}/${wavefile}`)
+                        console.log(result)
+                        res.send(result)                
+                    })
+            })
+        break;
+
     }
 
 }
