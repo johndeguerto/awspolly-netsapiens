@@ -10,7 +10,8 @@ function prepareWav(dataStream, callback) {
     const { exec } = require('child_process')
     var randName = randomstring.generate()
     var tmpFile = '/tmp/' + randName + '.mp3'
-    var speechWav = '/tmp/speech.wav'
+    //var speechWav = '/tmp/speech.wav'
+    var speechWav = './audio/' + randName + '.wav'
 
     if (dataStream.AudioStream instanceof Buffer) {
         fs.writeFile(tmpFile, dataStream.AudioStream, (err) => {
@@ -23,7 +24,7 @@ function prepareWav(dataStream, callback) {
 
                 exec('/usr/bin/sox ' + tmpWav + ' -e mu-law -r 8000 -c 1 -b 8 ' + speechWav, (err, stdout, stderr) => {
                     if (err) console.log(err.stack)
-                    exec('cp ' + speechWav + ' ./audio')
+                    speechWav = speechWav.substring(2)
                     callback(speechWav)
                 })
             })
