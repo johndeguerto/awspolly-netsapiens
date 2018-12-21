@@ -101,12 +101,6 @@ function processTicket(req,res){
             })  */
     }
 
-    if(req.query.Digits == 1){
-        console.log('User pressed ' + req.query.Digits )
-
-    }
-
-    res.end()
 }
 
 /**
