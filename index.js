@@ -14,7 +14,7 @@ function prepareWav(dataStream,callback) {
 
             console.log('Aws generated file has been saved in the ' + tmpFile)
 
-            var tmpWav = '/tmp' + randName + '.wav'
+            var tmpWav = '/tmp/' + randName + '.wav'
             exec('/usr/bin/mpg123 -w ' + tmpWav + ' ' + tmpFile, (err, stdout, stderr) => {
                 if(err) console.log(err.stack)
 
