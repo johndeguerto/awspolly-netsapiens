@@ -29,7 +29,7 @@ function awsSpeech(speechText, callback) {
         SampleRate : '8000',
         Text : speechText,
         TextType : 'ssml',
-        VoiceId : 'Joanna'
+        VoiceId : 'Matthew'
     }, callback)
 
 }

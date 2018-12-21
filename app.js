@@ -91,6 +91,20 @@ function processTicket(req,res){
 
 }
 
+function menuSpeech() {
+    var context = `
+        <speak><prosody volume="medium"><emphasis level="strong">Welcome</emphasis></prosody> to the main menu!<break/>
+        <p>Please listen to the following options<break time="1s"/></p>
+        <p>If you are calling for the joke of the day.  press 1.</p>
+        <p>If you are calling to submit a ticket, please press 2 now.</p>
+        <p>or to speak to our technical support department, press 3</p>
+        <break time="1s"/>
+        <p>To repeat the options again, press 9.</p>
+        </speak>
+    `
+    return context
+}
+
 /**
  * Handle Tickets
  */
@@ -102,7 +116,7 @@ app.get('/ticket', processTicket)
 app.get('/webresponder', (req,res) => {    
     console.log(req.query)
 
-    speech('<speak>Welcome to Clear Clouds IVR Control responder.  Press 1 to hear the joke of the day..</speak>', function (err, data) {
+    speech(menuSpeech(), function (err, data) {
         if (err) console.log(err.stack)
         else
             prepareWav(data, (wavefile) => {
