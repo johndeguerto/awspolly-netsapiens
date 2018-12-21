@@ -76,9 +76,8 @@ function processTicket(req,res){
                 if (err) console.log(err.stack)
                 else
                     prepareWav(data, (wavefile) => {
-                        console.log('Your 8bit 8000Hz wave file is now ready for default speech \n' + wavefile)
-                        //var result = gather(1, `${httpSrv}/ticket`, `${httpSrv}/audio/speech.wav`)
-                        var result = play('', `${httpSrv}audio/speech.wav`)
+                        console.log('Your 8bit 8000Hz wave file is now ready for default speech \n' + wavefile)                        
+                        var result = play('', `${httpSrv}/audio/speech.wav`)
                         console.log(result)
                         res.send(result)             
                     })
