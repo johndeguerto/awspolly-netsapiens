@@ -16,7 +16,7 @@ function gather(digit, action, audio){
 }
 
 function play(action,audio){
-    return `<Play action='${action}'>${audio}</Play>`
+    return `<Play>${audio}</Play>`
 }
 
 function forward(location){
@@ -34,7 +34,7 @@ app.get('/', (req,res) => {
 
 function serveHttpAudioFile(req,res){
     
-    var audio = './audio/' + req.params.wavefile
+    var audio = './audio/' + req.params.wavefile    
 
     if( fs.existsSync(audio) ) {
         console.log('Reading ' + audio + ' file')
@@ -80,26 +80,13 @@ function processTicket(req,res){
                         console.log('Your 8bit 8000Hz wave file is now ready for default speech \n' + wavefile)                        
                         var result = play('#', `${httpSrv}/${wavefile}`)
                         console.log(result)
-                        res.send(result)             
+                        res.send(result)    
                     })
             }) 
         break;
         case '2':
 
         break;
-/* 
-        default:           
-            speech('<speak>Invalid response. Good Bye</speak>', function (err, data) {
-                if (err) console.log(err.stack)
-                else
-                    prepareWav(data, (wavefile) => {
-                        console.log('Your 8bit 8000Hz wave file is now ready for default speech \n' + wavefile)
-                        //var result = gather(1, `${httpSrv}/ticket`, `${httpSrv}/audio/speech.wav`)
-                        var result = play('', `${httpSrv}audio/speech.wav`)
-                        console.log(result)
-                        res.send(result)             
-                    })
-            })  */
     }
 
 }
