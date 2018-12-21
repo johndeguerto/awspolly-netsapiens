@@ -59,6 +59,9 @@ app.get('/audio/speech.wav', serveHttpAudioFile)
 
 function processTicket(req,res){
     console.log(req.query)
+
+    console.log('Process Ticket callback initiated.')
+
     res.end()
 }
 
@@ -77,7 +80,7 @@ app.get('/webresponder', (req,res) => {
 
     var httpSrv = 'http://pre.clearclouds.ca:8081'
 
-    speech('<speak>Welcome to John\'s IVR Control responder.  Press 1 to learn more.</speak>', function (err, data) {
+    speech('<speak>Welcome to Clear Clouds IVR Control responder.  Press 1 to hear the joke of the day..</speak>', function (err, data) {
         if (err) console.log(err.stack)
         else
             prepareWav(data, (wavefile) => {
