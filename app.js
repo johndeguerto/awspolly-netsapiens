@@ -66,7 +66,7 @@ function processTicket(req,res){
     console.log('Process Ticket callback initiated.')
 
     switch(req.query.Digits){
-        case 1:
+        case '1':
             var str = "<speak>A lawyer is standing in a long line at the box office. Suddenly, he feels a pair of hands kneading his shoulders, back, and neck. The lawyer turns around."
             str += "What the hell do you think you're doing?"
             str += "I'm a chiropractor, and I'm just keeping in practice while I'm waiting in line."
@@ -83,7 +83,7 @@ function processTicket(req,res){
                     })
             }) 
         break;
-        case 2:
+        case '2':
 
         break;
 /* 
