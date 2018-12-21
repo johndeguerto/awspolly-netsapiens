@@ -12,7 +12,7 @@ function prepareWav(dataStream,callback) {
         fs.writeFile(tmpFile, dataStream.AudioStream, (err) => {
             if(err) console.log(err.stack)
 
-            console.log('Aws generated file has been saved in the ' + tmpFile)
+            //console.log('Aws generated file has been saved in the ' + tmpFile)
 
             var tmpWav = '/tmp/' + randName + '.wav'
             exec('/usr/bin/mpg123 -w ' + tmpWav + ' ' + tmpFile, (err, stdout, stderr) => {
@@ -33,7 +33,7 @@ speech('This will be translated to audio file.', function(err,data) {
     if(err) console.log(err.stack)
     else
     prepareWav(data, (wavefile)=>{
-        console.log(wavefile)
+        console.log('Your 8bit 8000Hz wave file is now ready \n' + wavefile)
     })
 })
 
