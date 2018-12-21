@@ -86,7 +86,7 @@ function processTicket(req,res){
         case 2:
 
         break;
-
+/* 
         default:           
             speech('<speak>Invalid response. Good Bye</speak>', function (err, data) {
                 if (err) console.log(err.stack)
@@ -98,7 +98,7 @@ function processTicket(req,res){
                         console.log(result)
                         res.send(result)             
                     })
-            }) 
+            })  */
     }
 
     if(req.query.Digits == 1){
