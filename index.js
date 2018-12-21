@@ -29,7 +29,7 @@ function prepareWav(dataStream,callback) {
 
 }
 
-speech('Hello there', function(err,data) {
+speech('This will be translated to audio file.', function(err,data) {
     if(err) console.log(err.stack)
     else
     prepareWav(data, (wavefile)=>{
