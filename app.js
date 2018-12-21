@@ -16,7 +16,7 @@ function gather(digit, action, audio){
 }
 
 function play(action,audio){
-    return `<Play> action='${action}'>${audio}</Play>`
+    return `<Play action='${action}'>${audio}</Play>`
 }
 
 function forward(location){
