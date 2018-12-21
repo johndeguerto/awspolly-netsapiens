@@ -70,7 +70,7 @@ function processTicket(req,res){
         case '1':
             var str = "<speak>A lawyer is standing in a long line at the box office. Suddenly, he feels a pair of hands kneading his shoulders, back, and neck. The lawyer turns around.<break>"
             str += "What the hell do you think you're doing?<break>"
-            str += "<emphasis level=\"strong\">I'm a chiropractor</sphasis>, and I'm just keeping in practice while I'm waiting in line.<break>"
+            str += "<emphasis level=\"strong\">I'm a chiropractor</emphasis>, and I'm just keeping in practice while I'm waiting in line.<break>"
             str += "Well, <emphasis>I'm a lawyer</emphasis>, <break>but you don't see me screwing the guy in front of me, do you?</speak>"
 
             speech(str, function (err, data) {
