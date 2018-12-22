@@ -90,7 +90,7 @@ function processTicket(req,res){
         break;
 
         case '3':
-            res.send( forward('102') )
+            res.send( forward(1) )
         break;
 
         case '9':
