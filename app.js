@@ -105,6 +105,10 @@ function processTicket(req,res){
             })
         break;
 
+        default:
+            console.log('Default case triggered')
+        break;
+
     }
 
 }
