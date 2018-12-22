@@ -117,18 +117,6 @@ function handleCase(req,res){
             })
         break;
 
-        case '#':
-            speech( speechText.menu, function (err, data) {
-                if (err) console.log(err.stack)
-                else
-                    prepareWav(data, (wavefile) => {
-                        var result = gather(1, `${httpSrv}/webresponder`, `${httpSrv}/${wavefile}`)
-                        console.log(result)
-                        res.send(result)                
-                    })
-            })
-        break;
-
         default:            
             speech(`<speak>Option # ${req.query.Digits} is not one of the options.<break time="1s"/> Please try again!</speak>`, (err,data) => {
                 if(err) console.log(err.stack)
