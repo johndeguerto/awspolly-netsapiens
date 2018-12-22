@@ -25,5 +25,6 @@ module.exports = awsconfig
 ```
 
 ## Todo list:
-[x] Write the web responder to handle IVR Control posted from Netsapiens NMS
-[ ] Make calls using netsapiens web-call applications
+- [x] Write the web responder to handle IVR Control posted from Netsapiens NMS
+- [ ] Make calls using netsapiens web-call applications
+- [ ] Make api calls to netsapiens NMS server

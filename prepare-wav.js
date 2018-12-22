@@ -18,7 +18,7 @@ function prepareWav(dataStream, callback) {
             if (err) console.log(err.stack)
             
             var tmpWav = '/tmp/' + randName + '.wav'                        
-
+                        
             exec('/usr/bin/mpg123 -w ' + tmpWav + ' ' + tmpFile, (err, stdout, stderr) => {
                 if (err) console.log(err.stack)
 
