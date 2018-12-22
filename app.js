@@ -5,8 +5,8 @@ const port = 8081
 
 var speech = require('./awspolly')
 var prepareWav = require('./prepare-wav')
-var httpSrv = 'http://pre.clearclouds.ca:8081'
-//var httpSrv = 'http://localhost:8081'
+const config = require('./config.json')
+const httpSrv = config.httpSrv.url + ':' + config.httpSrv.port
 
 function gather(digit, action, audio){
     var x = `<Gather numDigits='${digit}' action='${action}'>`
@@ -138,7 +138,6 @@ app.get('/webresponder', (req,res) => {
         else
             prepareWav(data, (wavefile) => {
                 console.log('Your 8bit 8000Hz wave file is now ready \n' + wavefile)
-
                 var result = gather(1, `${httpSrv}/ticket`, `${httpSrv}/${wavefile}`)
                 console.log(result)
                 res.send(result)                
