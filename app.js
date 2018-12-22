@@ -107,6 +107,15 @@ function processTicket(req,res){
 
         default:
             console.log('Default case triggered')
+            speech(`<speak>Option # ${req.query.Digits} is not one of the options.<break time="1s"/> Please try again!</speak>`, (err,data) => {
+                if(err) console.log(err.stack)
+                    prepareWav(data, (wavefile) => {                        
+                        var result = gather(1, `${httpSrv}/ticket`, `${httpSrv}/${wavefile}`)                        
+                        res.send(result)                
+                    }) 
+            })
+
+
         break;
 
     }
