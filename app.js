@@ -8,6 +8,31 @@ var prepareWav = require('./prepare-wav')
 const config = require('./config.json')
 const httpSrv = config.httpSrv.url + ':' + config.httpSrv.port
 
+/**
+ * Amazon AWS Polly SSML formatted text
+ */
+const speechText = {
+    case1 : '<speak>You have selected Option # 1</speak>',
+    case2 : '<speak>You have selected Option # 2</speak>',
+    case3 : '<speak>You have selected Option # 3</speak>',
+    menu : `
+        <speak><prosody volume="medium"><emphasis level="strong">Welcome</emphasis></prosody> to the main menu!<break/>
+        <p>Please listen to the following options<break time="1s"/></p>
+        <p>For option 1 press 1</p>
+        <p>For option 2 press 2</p>
+        <p>For option 3 press 3</p>
+        <break time="1s"/>
+        <p>To repeat the options again, press #.</p>
+        </speak>
+    `
+}
+
+/**
+ * IVR Control for gathering input
+ * @param {*} digit 
+ * @param {*} action 
+ * @param {*} audio 
+ */
 function gather(digit, action, audio){
     var x = `<Gather numDigits='${digit}' action='${action}'>`
     x += `<Play>${audio}</Play>`
@@ -15,6 +40,11 @@ function gather(digit, action, audio){
     return x
 }
 
+/**
+ * IVR control for playing audio
+ * @param {*} action 
+ * @param {*} audio 
+ */
 function play(action,audio){
     return `<Play action="${action}">${audio}</Play>`
 }
@@ -22,15 +52,6 @@ function play(action,audio){
 function forward(location){
     return `<Forward>${location}</Forward>`
 }
-
-/**
- * Default route sends 404 not found
- */
-app.get('/', (req,res) => {    
-    console.log('Undefined request')
-    res.statusCode == 404
-    res.end()
-})
 
 function serveHttpAudioFile(req,res){
     
@@ -56,61 +77,63 @@ function serveHttpAudioFile(req,res){
     
 }
 
-/**
- * Serve wave file
- */
-app.get('/audio/:wavefile', serveHttpAudioFile)
 
 
-function processTicket(req,res){
+function handleCase(req,res){
     console.log(req.query)
-    console.log('Process Ticket callback initiated.')
+    console.log('Process case callback initiated.')
 
     switch(req.query.Digits){
         case '1':
-            var str = "<speak>A lawyer is standing in a long line at the box office. Suddenly, he feels a pair of hands kneading his shoulders, back, and neck. The lawyer turns around.<break/>"
-            str += "What the hell do you think you're doing?<break/>"
-            str += "<emphasis level=\"strong\">I'm a chiropractor</emphasis>, and I'm just keeping in practice while I'm waiting in line.<break/>"
-            str += "Well, <emphasis>I'm a lawyer</emphasis>, <break/>but you don't see me screwing the guy in front of me, do you?</speak>"
-
-            speech(str, function (err, data) {
+            speech( speechText.case1, function (err, data) {
                 if (err) console.log(err.stack)
                 else
                     prepareWav(data, (wavefile) => {
-                        console.log('Your 8 bit 8000Hz wave file is now ready for speech \n' + wavefile)                        
-                        var result = play(`${httpSrv}/webresponder`, `${httpSrv}/${wavefile}`)
-                        console.log(result)
+                        var result = play(`${httpSrv}/case`, `${httpSrv}/${wavefile}`)                        
                         res.send(result)
                     })
             })
 
         break;
         case '2':
-            res.send( forward('102') )
-        break;
-
-        case '3':
-            res.send( forward('1') )
-        break;
-
-        case '9':
-            speech(menuSpeech(), function (err, data) {
+            speech( speechText.case2, function (err, data) {
                 if (err) console.log(err.stack)
                 else
                     prepareWav(data, (wavefile) => {
-                        var result = gather(1, `${httpSrv}/ticket`, `${httpSrv}/${wavefile}`)
+                        var result = play(`${httpSrv}/case`, `${httpSrv}/${wavefile}`)                        
+                        res.send(result)
+                    })
+            })
+        break;
+
+        case '3':
+            speech( speechText.case3, function (err, data) {
+                if (err) console.log(err.stack)
+                else
+                    prepareWav(data, (wavefile) => {
+                        var result = play(`${httpSrv}/case`, `${httpSrv}/${wavefile}`)                        
+                        res.send(result)
+                    })
+            })
+        break;
+
+        case '#':
+            speech( speechText.menu, function (err, data) {
+                if (err) console.log(err.stack)
+                else
+                    prepareWav(data, (wavefile) => {
+                        var result = gather(1, `${httpSrv}/case`, `${httpSrv}/${wavefile}`)
                         console.log(result)
                         res.send(result)                
                     })
             })
         break;
 
-        default:
-            console.log('Default case triggered')
+        default:            
             speech(`<speak>Option # ${req.query.Digits} is not one of the options.<break time="1s"/> Please try again!</speak>`, (err,data) => {
                 if(err) console.log(err.stack)
                     prepareWav(data, (wavefile) => {                        
-                        var result = gather(1, `${httpSrv}/ticket`, `${httpSrv}/${wavefile}`)                        
+                        var result = gather(1, `${httpSrv}/case`, `${httpSrv}/${wavefile}`)                        
                         res.send(result)                
                     }) 
             })
@@ -121,45 +144,39 @@ function processTicket(req,res){
 
 }
 
-function menuSpeech() {
-    var context = `
-        <speak><prosody volume="medium"><emphasis level="strong">Welcome</emphasis></prosody> to the main menu!<break/>
-        <p>Please listen to the following options<break time="1s"/></p>
-        <p>If you are calling for the joke of the day.  press 1.</p>
-        <p>If you are calling to submit a ticket, please press 2 now.</p>
-        <p>or to speak to our technical support department, press 3</p>
-        <break time="1s"/>
-        <p>To repeat the options again, press 9.</p>
-        </speak>
-    `
-    return context
-}
 
 /**
- * Handle Tickets
+ * Default route sends 404 not found
  */
-app.get('/ticket', processTicket)
+app.get('/', (req,res) => {    
+    console.log('Undefined request')
+    res.statusCode == 404
+    res.end()
+})
+
+/**
+ * Serve wave file
+ */
+app.get('/audio/:wavefile', serveHttpAudioFile)
+
+/**
+ * Handle cases based on request
+ */
+app.get('/case', handleCase)
 
 /**
  * Web Responder Entry point
  */
 app.get('/webresponder', (req,res) => {    
-    console.log(req.query)
-
-    speech(menuSpeech(), function (err, data) {
+    speech( speechText.menu, function (err, data) {
         if (err) console.log(err.stack)
         else
-            prepareWav(data, (wavefile) => {
-                console.log('Your 8bit 8000Hz wave file is now ready \n' + wavefile)
-                var result = gather(1, `${httpSrv}/ticket`, `${httpSrv}/${wavefile}`)
-                console.log(result)
+            prepareWav(data, (wavefile) => {                
+                var result = gather(1, `${httpSrv}/case`, `${httpSrv}/${wavefile}`)                
                 res.send(result)                
             })
     })
-
 })
-
-
 
 
 app.listen(port, () => console.log(`Serving requests on port : ${config.httpSrv.port}!`))
