@@ -89,7 +89,7 @@ function handleCase(req,res){
                 if (err) console.log(err.stack)
                 else
                     prepareWav(data, (wavefile) => {
-                        var result = play(`${httpSrv}/case`, `${httpSrv}/${wavefile}`)                        
+                        var result = play(`${httpSrv}/webresponder`, `${httpSrv}/${wavefile}`)                        
                         res.send(result)
                     })
             })
@@ -100,7 +100,7 @@ function handleCase(req,res){
                 if (err) console.log(err.stack)
                 else
                     prepareWav(data, (wavefile) => {
-                        var result = play(`${httpSrv}/case`, `${httpSrv}/${wavefile}`)                        
+                        var result = play(`${httpSrv}/webresponder`, `${httpSrv}/${wavefile}`)                        
                         res.send(result)
                     })
             })
@@ -111,7 +111,7 @@ function handleCase(req,res){
                 if (err) console.log(err.stack)
                 else
                     prepareWav(data, (wavefile) => {
-                        var result = play(`${httpSrv}/case`, `${httpSrv}/${wavefile}`)                        
+                        var result = play(`${httpSrv}/webresponder`, `${httpSrv}/${wavefile}`)                        
                         res.send(result)
                     })
             })
@@ -122,7 +122,7 @@ function handleCase(req,res){
                 if (err) console.log(err.stack)
                 else
                     prepareWav(data, (wavefile) => {
-                        var result = gather(1, `${httpSrv}/case`, `${httpSrv}/${wavefile}`)
+                        var result = gather(1, `${httpSrv}/webresponder`, `${httpSrv}/${wavefile}`)
                         console.log(result)
                         res.send(result)                
                     })

@@ -37,5 +37,5 @@ module.exports = awsconfig
 ```
 
 ## Create a dial translation that points to your web responder as shown below
-![Web Responder Image](https://raw.githubusercontent.com/johndeguerto/awspolly-netsapiens/master/audio/image1.png)
+![Web Responder Image](https://raw.githubusercontent.com/johndeguerto/awspolly-netsapiens/master/image/image1.png)
 
