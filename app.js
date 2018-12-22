@@ -149,4 +149,4 @@ app.get('/webresponder', (req,res) => {
 
 
 
-app.listen(port, () => console.log(`Serving requests on port : ${port}!`))
+app.listen(port, () => console.log(`Serving requests on port : ${config.httpSrv.port}!`))
