@@ -1,5 +1,6 @@
 awsconfig.js
 config.json
 image/.DS_Store
+node_modules/*
 audio/*
 
