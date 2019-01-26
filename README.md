@@ -1,5 +1,5 @@
 # awspolly-netsapiens
-This a web responder to netsapiens To-Web dial translation.  It will use AWS Polly TTS and convert the mp3 to wav compatible format for Netsapiens.
+This a web responder to netsapiens To-Web dial translation.  It will use AWS Polly TTS and convert the mp3 to wav compatible format.
 
 ## Features:
 - [x] Use star codes on the phone to initiate the responder
