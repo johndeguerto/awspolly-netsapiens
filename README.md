@@ -8,16 +8,18 @@ This a web responder to netsapiens To-Web dial translation.  It will use AWS Pol
 - [x] Convert Mp3 to ulaw compatible format
 
 ## How to Install?
-```
+```js
 git clone https://github.com/johndeguerto/awspolly-netsapiens
 
 ```
 
 ## Install mpg123 and sox, required for preparing wav file for netsapiens use
-```sudo apt-get install mpg123 sox```
+```js
+sudo apt-get install mpg123 sox
+```
 
 ## Create config.json to store your http and port info
-```
+```js
 {
     "httpSrv" : {
         "url" : "http://localhost",
@@ -27,7 +29,7 @@ git clone https://github.com/johndeguerto/awspolly-netsapiens
 ```
 
 ## Create awsconfig.js with the following content.
-```
+```js
 const awsconfig = {
     accessKeyId : '<yourkeyid>',
     secretAccessKey : 'yourAccessKey'
